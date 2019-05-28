@@ -15,7 +15,6 @@
             _ticTacToe = new TicTacToe();
         }
 
-
         [Test]
         public void ReturnGameInProgress_GivenNoTurnsTaken()
         {
@@ -29,6 +28,15 @@
 
             allowed.Should().BeFalse();
             message.Should().Be("It is X's go!");
+        }
+
+        [Test]
+        public void AllowedXToTakeTurn_GivenNoTurns()
+        {
+            var (allowed, message) = _ticTacToe.TakeTurn("X", 0, 0);
+
+            allowed.Should().BeTrue();
+            message.Should().Be("All Good");
         }
     }
 }
