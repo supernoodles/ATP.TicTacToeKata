@@ -38,5 +38,16 @@
             allowed.Should().BeTrue();
             message.Should().Be("All Good");
         }
+
+        [Test]
+        public void AllowOToTakeTurn_GivenXHasTakenTurn()
+        {
+            _ticTacToe.TakeTurn("X", 0, 0);
+
+            var (allowed, message) = _ticTacToe.TakeTurn("O", 0, 1);
+
+            allowed.Should().BeTrue();
+            message.Should().Be("All Good");
+        }
     }
 }
