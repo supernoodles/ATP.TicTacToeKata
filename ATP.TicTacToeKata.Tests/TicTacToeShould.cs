@@ -7,20 +7,25 @@
     [TestFixture]
     public class TicTacToeShould
     {
+        private TicTacToe _ticTacToe;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _ticTacToe = new TicTacToe();
+        }
+
+
         [Test]
         public void ReturnGameInProgress_GivenNoTurnsTaken()
         {
-            var ticTacToe = new TicTacToe();
-            var inProgress = ticTacToe.IsInProgress();
-            inProgress.Should().BeTrue();
+            _ticTacToe.IsInProgress().Should().BeTrue();
         }
 
         [Test]
         public void NotAllowOToTakeTurn_GivenNoTurns()
         {
-            var ticTacToe = new TicTacToe();
-
-            var (allowed, message) = ticTacToe.TakeTurn("O", 0, 0);
+            var (allowed, message) = _ticTacToe.TakeTurn("O", 0, 0);
 
             allowed.Should().BeFalse();
             message.Should().Be("It is X's go!");
