@@ -8,7 +8,7 @@
     public class TicTacToeShould
     {
         [Test]
-        public void ReturnGameInProgress_WhenNoTurnsTaken()
+        public void ReturnGameInProgress_GivenNoTurnsTaken()
         {
             var ticTacToe = new TicTacToe();
             var inProgress = ticTacToe.IsInProgress();
