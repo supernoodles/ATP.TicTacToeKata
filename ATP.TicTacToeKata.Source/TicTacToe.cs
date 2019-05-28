@@ -18,7 +18,7 @@
             }
 
             _nextSymbol = symbol == "X" ? "O" : "X";
-
+            
             return (true, "All Good");
         }
     }
