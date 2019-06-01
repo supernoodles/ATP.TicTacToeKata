@@ -62,5 +62,16 @@
             message.Should().Be("All Good");
         }
 
+        [Test]
+        public void NotAllowedXToTakeTurn_GivenXHasTakenTurn()
+        { 
+            _ticTacToe.TakeTurn("X", 0, 0);
+            var (allowed, message) = _ticTacToe.TakeTurn("X", 0, 1);
+
+            allowed.Should().BeFalse();
+            message.Should().Be("It is O's go!");
+        }
+
+
     }
 }

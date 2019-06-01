@@ -14,7 +14,7 @@
         {
             if (_nextSymbol != symbol)
             {
-                return (false, "It is X's go!");
+                return (false, $"It is {_nextSymbol}'s go!");
             }
 
             _nextSymbol = symbol == "X" ? "O" : "X";
