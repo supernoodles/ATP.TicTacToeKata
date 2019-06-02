@@ -1,4 +1,7 @@
-﻿namespace ATP.TicTacToeKata.Source
+﻿using System;
+using System.Runtime.Remoting.Messaging;
+
+namespace ATP.TicTacToeKata.Source
 {
     public class TicTacToe
     {
@@ -9,6 +12,8 @@
         }
 
         private Player _nextSymbol = Player.X;
+
+        private Player?[,] _board = new Player?[3, 3];
 
         public bool IsInProgress()
         {
@@ -23,8 +28,34 @@
             }
 
             _nextSymbol = symbol == Player.X ? Player.O : Player.X;
-            
+
+            return SetSquareContent(symbol, row, column);
+        }
+
+        public (bool populated, Player? symbol) GetSquareContent(int row, int column)
+        {
+            var square = _board[row, column];
+
+            if (square == null)
+            {
+                return (false, null);
+            }
+
+            return (true, square);
+        }
+
+        public (bool allowed, string message) SetSquareContent(Player symbol, int row, int column)
+        {
+            var squareContent = GetSquareContent(row, column);
+
+            if (squareContent.populated)
+            {
+                return (false, "Square already populated");
+            }
+
+            _board[row, column] = symbol;
             return (true, "All Good");
         }
+
     }
 }

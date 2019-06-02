@@ -84,17 +84,15 @@ namespace ATP.TicTacToeKata.Tests
             message.Should().Be("It is O's go!");
         }
 
-/*
         [Test]
         public void NotAllowedRow0Column0_GivenRow0Column0Populated()
         {
             _ticTacToe.TakeTurn(TicTacToe.Player.X, 0, 0);
-            var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.Player.O, 0, 1);
+            var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.Player.O, 0, 0);
 
             allowed.Should().BeFalse();
-            message.Should().Be("Can't go there!");
+            message.Should().Be("Square already populated");
         }
-*/
 
 
     }
