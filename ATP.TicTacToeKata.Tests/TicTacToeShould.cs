@@ -94,6 +94,15 @@ namespace ATP.TicTacToeKata.Tests
             message.Should().Be("Square already populated");
         }
 
+        [Test]
+        public void AllowedRow1Column1_GivenNoTurns()
+        {
+            var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.Player.X, 1, 1);
+
+            allowed.Should().BeTrue();
+            message.Should().Be("All Good");
+        }
+
 
     }
 }
