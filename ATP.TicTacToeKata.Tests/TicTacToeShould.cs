@@ -105,5 +105,22 @@
             allowed.Should().BeTrue();
             message.Should().Be("X is the winner!");
         }
+
+        [Test]
+        public void MakeOWinner_GivenThreeOsInTopRow()
+        {
+            _ticTacToe.TakeTurn(TicTacToe.PlayerX, 1, 0);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerO, 0, 0);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerX, 1,1 );
+            _ticTacToe.TakeTurn(TicTacToe.PlayerO, 0, 1);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerX, 2, 0);
+
+            var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.PlayerO, 0, 2);
+
+            allowed.Should().BeTrue();
+            message.Should().Be("O is the winner!");
+        }
+
+
     }
 }

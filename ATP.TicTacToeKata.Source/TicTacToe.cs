@@ -42,6 +42,12 @@
                 return (true, "X is the winner!");
             }
 
+            if (_board[0, 0] == PlayerO && _board[0, 1] == PlayerO && _board[0, 2] == PlayerO)
+            {
+                return (true, "O is the winner!");
+            }
+
+
             return (true, "All Good");
         }
 
