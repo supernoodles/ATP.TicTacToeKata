@@ -11,13 +11,20 @@
 
         private int _turnCounter;
 
-        public bool IsInProgress()
+        public bool IsInProgress { get; private set; }
+
+        public TicTacToe()
         {
-            return true;
+            IsInProgress = true;
         }
 
         public (bool allowed, string message) TakeTurn(string symbol, int row, int column)
         {
+            if (!IsInProgress)
+            {
+                return (false, "Game over man");
+            }
+
             if (_nextSymbol != symbol)
             {
                 return (false, $"It is {_nextSymbol}'s go!");
@@ -25,33 +32,40 @@
 
             _nextSymbol = symbol == PlayerX ? PlayerO : PlayerX;
 
-            return SetSquareContent(symbol, row, column);
+            if (!SetSquareContent(symbol, row, column))
+            {
+                return (false, "Square already populated");
+            }
+
+            if (CheckForWinner(symbol))
+            {
+                IsInProgress = false;
+                return (true, $"{symbol} is the winner!");
+            }
+
+            if (_turnCounter == 9)
+            {
+                IsInProgress = false;
+                return (true, "Game drawn!");
+            }
+
+            return (true, "All Good");
         }
 
-        private (bool allowed, string message) SetSquareContent(string symbol, int row, int column)
+        private bool SetSquareContent(string symbol, int row, int column)
         {
             var squareContent = _board[row, column];
 
             if (squareContent != null)
             {
-                return (false, "Square already populated");
+                return false;
             }
 
             _board[row, column] = symbol;
 
             _turnCounter += 1;
 
-            if (CheckForWinner(symbol)) 
-            {
-                return (true, $"{symbol} is the winner!");
-            }
-
-            if (_turnCounter == 9)
-            {
-                return (true, "Game drawn!");
-            }
-
-            return (true, "All Good");
+            return true;
         }
 
         private bool CheckForWinner(string symbol) =>

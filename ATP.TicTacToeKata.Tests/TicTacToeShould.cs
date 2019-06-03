@@ -18,7 +18,7 @@
         [Test]
         public void ReturnGameInProgress_GivenNoTurnsTaken()
         {
-            _ticTacToe.IsInProgress().Should().BeTrue();
+            _ticTacToe.IsInProgress.Should().BeTrue();
         }
 
         [Test]
@@ -203,5 +203,40 @@
             allowed.Should().BeTrue();
             message.Should().Be("Game drawn!");
         }
+
+        [Test]
+        public void ReportGameOver_GivenGameAlreadyWon()
+        {
+            _ticTacToe.TakeTurn(TicTacToe.PlayerX, 0, 2);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerO, 1, 0);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerX, 1, 1);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerO, 1, 2);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerX, 2, 0);
+
+            var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.PlayerO, 2, 2);
+
+            allowed.Should().BeFalse();
+            message.Should().Be("Game over man");
+        }
+
+        [Test]
+        public void ReportGameOver_GivenGameDrawn()
+        {
+            _ticTacToe.TakeTurn(TicTacToe.PlayerX, 0, 0);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerO, 0, 2);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerX, 0, 1);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerO, 1, 0);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerX, 1, 2);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerO, 1, 1);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerX, 2, 0);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerO, 2, 1);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerX, 2, 2);
+
+            var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.PlayerO, 2, 2);
+
+            allowed.Should().BeFalse();
+            message.Should().Be("Game over man");
+        }
+
     }
 }
