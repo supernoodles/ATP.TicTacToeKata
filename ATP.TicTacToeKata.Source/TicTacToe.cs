@@ -1,9 +1,13 @@
 ﻿namespace ATP.TicTacToeKata.Source
 {
+    using System.Linq;
+
     public class TicTacToe
     {
         public const string PlayerX = "X";
         public const string PlayerO = "O";
+
+        private const int MaxTurns = 9;
 
         private string _nextSymbol = PlayerX;
 
@@ -25,12 +29,12 @@
                 return (false, "Game over man");
             }
 
-            if (_nextSymbol != symbol)
+            if (SymbolIsUnexpected(symbol))
             {
                 return (false, $"It is {_nextSymbol}'s go!");
             }
 
-            _nextSymbol = symbol == PlayerX ? PlayerO : PlayerX;
+            ToggleNextSymbol(symbol);
 
             if (!SetSquareContent(symbol, row, column))
             {
@@ -43,7 +47,7 @@
                 return (true, $"{symbol} is the winner!");
             }
 
-            if (_turnCounter == 9)
+            if (_turnCounter == MaxTurns)
             {
                 IsInProgress = false;
                 return (true, "Game drawn!");
@@ -51,6 +55,12 @@
 
             return (true, "All Good");
         }
+
+        private void ToggleNextSymbol(string currentSymbol) =>
+            _nextSymbol = currentSymbol == PlayerX ? PlayerO : PlayerX;
+
+        private bool SymbolIsUnexpected(string symbol) =>
+            _nextSymbol != symbol;
 
         private bool SetSquareContent(string symbol, int row, int column)
         {
@@ -100,5 +110,11 @@
 
             return false;
         }
+
+        private bool CheckForWinningRowLinq(string symbol) =>
+            Enumerable.Range(0, 3)
+                .Select(row =>
+                    Enumerable.Range(0, 3).Select(column => _board[row, column] == symbol).All(result => result))
+                .Any(result => result);
     }
 }
