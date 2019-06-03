@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-
-namespace ATP.TicTacToeKata.Tests
+﻿namespace ATP.TicTacToeKata.Tests
 {
     using FluentAssertions;
     using NUnit.Framework;
@@ -26,7 +24,7 @@ namespace ATP.TicTacToeKata.Tests
         [Test]
         public void NotAllowOToTakeTurn_GivenNoTurns()
         {
-            var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.Player.O, 0, 0);
+            var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.PlayerO, 0, 0);
 
             allowed.Should().BeFalse();
             message.Should().Be("It is X's go!");
@@ -35,7 +33,7 @@ namespace ATP.TicTacToeKata.Tests
         [Test]
         public void AllowedXToTakeTurn_GivenNoTurns()
         {
-            var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.Player.X, 0, 0);
+            var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.PlayerX, 0, 0);
 
             allowed.Should().BeTrue();
             message.Should().Be("All Good");
@@ -44,9 +42,9 @@ namespace ATP.TicTacToeKata.Tests
         [Test]
         public void AllowOToTakeTurn_GivenXHasTakenTurn()
         {
-            _ticTacToe.TakeTurn(TicTacToe.Player.X, 0, 0);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerX, 0, 0);
 
-            var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.Player.O, 0, 1);
+            var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.PlayerO, 0, 1);
 
             allowed.Should().BeTrue();
             message.Should().Be("All Good");
@@ -55,30 +53,30 @@ namespace ATP.TicTacToeKata.Tests
         [Test]
         public void AllowXToTakeTurn_GivenOHasTakenTurn()
         {
-            _ticTacToe.TakeTurn(TicTacToe.Player.X, 0, 0);
-            _ticTacToe.TakeTurn(TicTacToe.Player.O, 0, 1);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerX, 0, 0);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerO, 0, 1);
 
-            var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.Player.X, 0, 2);
+            var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.PlayerX, 0, 2);
 
             allowed.Should().BeTrue();
             message.Should().Be("All Good");
         }
 
         [Test]
-        public void NotAllowedXToTakeTurn_GivenXHasTakenTurn()
+        public void NotAllowXToTakeTurn_GivenXHasTakenTurn()
         { 
-            _ticTacToe.TakeTurn(TicTacToe.Player.X, 0, 0);
-            var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.Player.X, 0, 1);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerX, 0, 0);
+            var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.PlayerX, 0, 1);
 
             allowed.Should().BeFalse();
             message.Should().Be("It is O's go!");
         }
 
         [Test]
-        public void NotAllowed0ToTakeTurn_Given0HasTakenTurn()
+        public void NotAllowOToTakeTurn_GivenOHasTakenTurn()
         {
-            _ticTacToe.TakeTurn(TicTacToe.Player.X, 0, 0);
-            var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.Player.X, 0, 1);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerX, 0, 0);
+            var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.PlayerX, 0, 1);
 
             allowed.Should().BeFalse();
             message.Should().Be("It is O's go!");
@@ -87,8 +85,8 @@ namespace ATP.TicTacToeKata.Tests
         [Test]
         public void NotAllowedRow0Column0_GivenRow0Column0Populated()
         {
-            _ticTacToe.TakeTurn(TicTacToe.Player.X, 0, 0);
-            var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.Player.O, 0, 0);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerX, 0, 0);
+            var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.PlayerO, 0, 0);
 
             allowed.Should().BeFalse();
             message.Should().Be("Square already populated");
@@ -97,7 +95,7 @@ namespace ATP.TicTacToeKata.Tests
         [Test]
         public void AllowedRow1Column1_GivenNoTurns()
         {
-            var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.Player.X, 1, 1);
+            var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.PlayerX, 1, 1);
 
             allowed.Should().BeTrue();
             message.Should().Be("All Good");

@@ -1,38 +1,32 @@
-﻿using System;
-using System.Runtime.Remoting.Messaging;
-
-namespace ATP.TicTacToeKata.Source
+﻿namespace ATP.TicTacToeKata.Source
 {
     public class TicTacToe
     {
-        public enum Player
-        {
-            X,
-            O
-        }
+        public const string PlayerX = "X";
+        public const string PlayerO = "O";
 
-        private Player _nextSymbol = Player.X;
+        private string _nextSymbol = PlayerX;
 
-        private Player?[,] _board = new Player?[3, 3];
+        private readonly string[,] _board = new string[3, 3];
 
         public bool IsInProgress()
         {
             return true;
         }
 
-        public (bool allowed, string message) TakeTurn(Player symbol, int row, int column)
+        public (bool allowed, string message) TakeTurn(string symbol, int row, int column)
         {
             if (_nextSymbol != symbol)
             {
                 return (false, $"It is {_nextSymbol}'s go!");
             }
 
-            _nextSymbol = symbol == Player.X ? Player.O : Player.X;
-
+            _nextSymbol = symbol == PlayerX ? PlayerO : PlayerX;
+             
             return SetSquareContent(symbol, row, column);
         }
 
-        public (bool populated, Player? symbol) GetSquareContent(int row, int column)
+        private (bool populated, string symbol) GetSquareContent(int row, int column)
         {
             var square = _board[row, column];
 
@@ -44,7 +38,7 @@ namespace ATP.TicTacToeKata.Source
             return (true, square);
         }
 
-        public (bool allowed, string message) SetSquareContent(Player symbol, int row, int column)
+        private (bool allowed, string message) SetSquareContent(string symbol, int row, int column)
         {
             var squareContent = GetSquareContent(row, column);
 
