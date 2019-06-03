@@ -64,7 +64,7 @@
 
         [Test]
         public void NotAllowXToTakeTurn_GivenXHasTakenTurn()
-        { 
+        {
             _ticTacToe.TakeTurn(TicTacToe.PlayerX, 0, 0);
             var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.PlayerX, 0, 1);
 
@@ -92,49 +92,38 @@
             message.Should().Be("Square already populated");
         }
 
-        [Test]
-        public void MakeXWinner_GivenThreeXsInTopRow()
+        [TestCase(0, 1)]
+        [TestCase(1, 0)]
+        [TestCase(2, 0)]
+        public void MakeXWinner_GivenThreeXsInRow(int xRow, int oRow)
         {
-            _ticTacToe.TakeTurn(TicTacToe.PlayerX, 0, 0);
-            _ticTacToe.TakeTurn(TicTacToe.PlayerO, 1, 0);
-            _ticTacToe.TakeTurn(TicTacToe.PlayerX, 0, 1);
-            _ticTacToe.TakeTurn(TicTacToe.PlayerO, 1, 1);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerX, xRow, 0);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerO, oRow, 0);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerX, xRow, 1);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerO, oRow, 1);
 
-            var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.PlayerX, 0, 2);
+            var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.PlayerX, xRow, 2);
 
             allowed.Should().BeTrue();
             message.Should().Be("X is the winner!");
         }
 
-        [Test]
-        public void MakeOWinner_GivenThreeOsInTopRow()
+        [TestCase(0, 1, 2)]
+        [TestCase(1, 0, 2)]
+        [TestCase(2, 0, 1)]
+        public void MakeOWinner_GivenThreeOsInRow(int oRow, int xRow1, int xRow2)
         {
-            _ticTacToe.TakeTurn(TicTacToe.PlayerX, 1, 0);
-            _ticTacToe.TakeTurn(TicTacToe.PlayerO, 0, 0);
-            _ticTacToe.TakeTurn(TicTacToe.PlayerX, 1,1 );
-            _ticTacToe.TakeTurn(TicTacToe.PlayerO, 0, 1);
-            _ticTacToe.TakeTurn(TicTacToe.PlayerX, 2, 0);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerX, xRow1, 0);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerO, oRow, 0);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerX, xRow1, 1);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerO, oRow, 1);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerX, xRow2, 0);
 
-            var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.PlayerO, 0, 2);
+            var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.PlayerO, oRow, 2);
 
             allowed.Should().BeTrue();
             message.Should().Be("O is the winner!");
         }
-
-        [Test]
-        public void MakeXWinner_GivenThreeXsInMiddleRow()
-        {
-            _ticTacToe.TakeTurn(TicTacToe.PlayerX, 1, 0);
-            _ticTacToe.TakeTurn(TicTacToe.PlayerO, 0, 0);
-            _ticTacToe.TakeTurn(TicTacToe.PlayerX, 1, 1);
-            _ticTacToe.TakeTurn(TicTacToe.PlayerO, 0, 1);
-
-            var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.PlayerX, 1, 2);
-
-            allowed.Should().BeTrue();
-            message.Should().Be("X is the winner!");
-        }
-
 
     }
 }
