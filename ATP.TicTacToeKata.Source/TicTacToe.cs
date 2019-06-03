@@ -26,23 +26,11 @@
             return SetSquareContent(symbol, row, column);
         }
 
-        private (bool populated, string symbol) GetSquareContent(int row, int column)
-        {
-            var square = _board[row, column];
-
-            if (square == null)
-            {
-                return (false, null);
-            }
-
-            return (true, square);
-        }
-
         private (bool allowed, string message) SetSquareContent(string symbol, int row, int column)
         {
-            var squareContent = GetSquareContent(row, column);
+            var squareContent = _board[row, column]; //GetSquareContent(row, column);
 
-            if (squareContent.populated)
+            if (squareContent != null)
             {
                 return (false, "Square already populated");
             }
@@ -50,6 +38,5 @@
             _board[row, column] = symbol;
             return (true, "All Good");
         }
-
     }
 }
