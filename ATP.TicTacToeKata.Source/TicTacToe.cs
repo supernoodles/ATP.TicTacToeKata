@@ -37,7 +37,7 @@
 
             _board[row, column] = symbol;
 
-            if (CheckForWinningTopRow(symbol) || CheckForWinningMiddleRow(symbol))
+            if (CheckForWinningRow(symbol))
             {
                 return (true, $"{symbol} is the winner!");
             }
@@ -45,15 +45,18 @@
             return (true, "All Good");
         }
 
-        private bool CheckForWinningTopRow(string player)
+        private bool CheckForWinningRow(string symbol)
         {
-            return _board[0, 0] == player && _board[0, 1] == player && _board[0, 2] == player;
-        }
-        private bool CheckForWinningMiddleRow(string symbol)
-        {
-            return _board[1, 0] == symbol && _board[1, 1] == symbol && _board[1, 2] == symbol;
-        }
+            for (var row = 0; row <= 2; row++)
+            {
+                if (_board[row, 0] == symbol && _board[row, 1] == symbol && _board[row, 2] == symbol)
+                {
+                    return true;
+                }
+            }
 
+            return false;
+        }
 
     }
 }
