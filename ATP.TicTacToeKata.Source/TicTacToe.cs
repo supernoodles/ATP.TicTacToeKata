@@ -28,7 +28,7 @@
 
         private (bool allowed, string message) SetSquareContent(string symbol, int row, int column)
         {
-            var squareContent = _board[row, column]; //GetSquareContent(row, column);
+            var squareContent = _board[row, column];
 
             if (squareContent != null)
             {
@@ -47,9 +47,12 @@
 
         private bool CheckForWinningColumn(string symbol)
         {
-            if (_board[0, 0] == symbol && _board[1, 0] == symbol && _board[2,0] == symbol)
+            for (var column = 0; column <= 2; column++)
             {
-                return true;
+                if (_board[0, column] == symbol && _board[1, column] == symbol && _board[2, column] == symbol)
+                {
+                    return true;
+                }
             }
 
             return false;
@@ -67,6 +70,5 @@
 
             return false;
         }
-
     }
 }
