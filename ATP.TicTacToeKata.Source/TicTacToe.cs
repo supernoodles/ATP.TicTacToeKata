@@ -9,6 +9,8 @@
 
         private readonly string[,] _board = new string[3, 3];
 
+        private int _turnCounter;
+
         public bool IsInProgress()
         {
             return true;
@@ -37,9 +39,16 @@
 
             _board[row, column] = symbol;
 
+            _turnCounter += 1;
+
             if (CheckForWinner(symbol)) 
             {
                 return (true, $"{symbol} is the winner!");
+            }
+
+            if (_turnCounter == 9)
+            {
+                return (true, "Game drawn!");
             }
 
             return (true, "All Good");
