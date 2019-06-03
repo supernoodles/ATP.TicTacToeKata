@@ -91,5 +91,19 @@
             allowed.Should().BeFalse();
             message.Should().Be("Square already populated");
         }
+
+        [Test]
+        public void MakeXWinner_GivenThreeXsInTopRow()
+        {
+            _ticTacToe.TakeTurn(TicTacToe.PlayerX, 0, 0);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerO, 1, 0);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerX, 0, 1);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerO, 1, 1);
+
+            var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.PlayerX, 0, 2);
+
+            allowed.Should().BeTrue();
+            message.Should().Be("X is the winner!");
+        }
     }
 }

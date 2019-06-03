@@ -36,7 +36,14 @@
             }
 
             _board[row, column] = symbol;
+
+            if (_board[0, 0] == "X" && _board[0, 1] == "X" && _board[0, 2] == "X")
+            {
+                return (true, "X is the winner!");
+            }
+
             return (true, "All Good");
         }
+
     }
 }
