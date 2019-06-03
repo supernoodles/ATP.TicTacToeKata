@@ -22,7 +22,7 @@
             }
 
             _nextSymbol = symbol == PlayerX ? PlayerO : PlayerX;
-             
+
             return SetSquareContent(symbol, row, column);
         }
 
@@ -37,19 +37,23 @@
 
             _board[row, column] = symbol;
 
-            if (_board[0, 0] == "X" && _board[0, 1] == "X" && _board[0, 2] == "X")
+            if (CheckForWinningTopRow(symbol) || CheckForWinningMiddleRow(symbol))
             {
-                return (true, "X is the winner!");
+                return (true, $"{symbol} is the winner!");
             }
-
-            if (_board[0, 0] == PlayerO && _board[0, 1] == PlayerO && _board[0, 2] == PlayerO)
-            {
-                return (true, "O is the winner!");
-            }
-
 
             return (true, "All Good");
         }
+
+        private bool CheckForWinningTopRow(string player)
+        {
+            return _board[0, 0] == player && _board[0, 1] == player && _board[0, 2] == player;
+        }
+        private bool CheckForWinningMiddleRow(string symbol)
+        {
+            return _board[1, 0] == symbol && _board[1, 1] == symbol && _board[1, 2] == symbol;
+        }
+
 
     }
 }

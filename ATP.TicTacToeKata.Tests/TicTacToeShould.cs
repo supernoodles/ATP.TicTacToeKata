@@ -121,6 +121,20 @@
             message.Should().Be("O is the winner!");
         }
 
+        [Test]
+        public void MakeXWinner_GivenThreeXsInMiddleRow()
+        {
+            _ticTacToe.TakeTurn(TicTacToe.PlayerX, 1, 0);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerO, 0, 0);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerX, 1, 1);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerO, 0, 1);
+
+            var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.PlayerX, 1, 2);
+
+            allowed.Should().BeTrue();
+            message.Should().Be("X is the winner!");
+        }
+
 
     }
 }
