@@ -37,12 +37,22 @@
 
             _board[row, column] = symbol;
 
-            if (CheckForWinningRow(symbol) || CheckForWinningColumn(symbol))
+            if (CheckForWinningRow(symbol) || CheckForWinningColumn(symbol) || CheckForWinningDiagonal(symbol)) 
             {
                 return (true, $"{symbol} is the winner!");
             }
 
             return (true, "All Good");
+        }
+
+        private bool CheckForWinningDiagonal(string symbol)
+        {
+            if (_board[0, 0] == symbol && _board[1, 1] == symbol && _board[2, 2] == symbol)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private bool CheckForWinningColumn(string symbol)
@@ -70,5 +80,9 @@
 
             return false;
         }
+
+
+
+
     }
 }

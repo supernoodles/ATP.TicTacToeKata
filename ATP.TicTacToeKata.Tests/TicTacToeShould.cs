@@ -157,5 +157,19 @@
             allowed.Should().BeTrue();
             message.Should().Be("O is the winner!");
         }
+
+        [Test]
+        public void MakeXWinner_GivenXDiagonal()
+        {
+            _ticTacToe.TakeTurn(TicTacToe.PlayerX, 0, 0);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerO, 1, 0);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerX, 1, 1);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerO, 1, 2);
+
+            var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.PlayerX, 2, 2);
+
+            allowed.Should().BeTrue();
+            message.Should().Be("X is the winner!");
+        }
     }
 }
