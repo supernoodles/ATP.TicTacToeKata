@@ -125,5 +125,19 @@
             message.Should().Be("O is the winner!");
         }
 
+        [TestCase(0, 1)]
+        public void MakeXWinner_GivenThreeXsInColumn(int xColumn, int oColumn)
+        {
+            _ticTacToe.TakeTurn(TicTacToe.PlayerX, 0, xColumn);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerO, 0, oColumn);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerX, 1, xColumn);
+            _ticTacToe.TakeTurn(TicTacToe.PlayerO, 1, oColumn);
+
+            var (allowed, message) = _ticTacToe.TakeTurn(TicTacToe.PlayerX, 2, xColumn);
+
+            allowed.Should().BeTrue();
+            message.Should().Be("X is the winner!");
+        }
+
     }
 }
