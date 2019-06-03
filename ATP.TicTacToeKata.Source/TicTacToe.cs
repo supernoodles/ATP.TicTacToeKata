@@ -47,7 +47,8 @@
 
         private bool CheckForWinningDiagonal(string symbol)
         {
-            if (_board[0, 0] == symbol && _board[1, 1] == symbol && _board[2, 2] == symbol)
+            if (_board[0, 0] == symbol && _board[1, 1] == symbol && _board[2, 2] == symbol ||
+                _board[0, 2] == symbol && _board[1, 1] == symbol && _board[2, 0] == symbol)
             {
                 return true;
             }
