@@ -37,7 +37,7 @@
 
             _board[row, column] = symbol;
 
-            if (CheckForWinningRow(symbol) || CheckForWinningColumn(symbol) || CheckForWinningDiagonal(symbol)) 
+            if (CheckForWinner(symbol)) 
             {
                 return (true, $"{symbol} is the winner!");
             }
@@ -45,16 +45,12 @@
             return (true, "All Good");
         }
 
-        private bool CheckForWinningDiagonal(string symbol)
-        {
-            if (_board[0, 0] == symbol && _board[1, 1] == symbol && _board[2, 2] == symbol ||
-                _board[0, 2] == symbol && _board[1, 1] == symbol && _board[2, 0] == symbol)
-            {
-                return true;
-            }
+        private bool CheckForWinner(string symbol) =>
+            CheckForWinningRow(symbol) || CheckForWinningColumn(symbol) || CheckForWinningDiagonal(symbol);
 
-            return false;
-        }
+        private bool CheckForWinningDiagonal(string symbol) =>
+            _board[0, 0] == symbol && _board[1, 1] == symbol && _board[2, 2] == symbol ||
+            _board[0, 2] == symbol && _board[1, 1] == symbol && _board[2, 0] == symbol;
 
         private bool CheckForWinningColumn(string symbol)
         {
@@ -81,9 +77,5 @@
 
             return false;
         }
-
-
-
-
     }
 }
